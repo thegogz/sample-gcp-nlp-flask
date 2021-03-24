@@ -34,6 +34,7 @@ def upload_text():
 
     # Analyse sentiment using Sentiment API call
     sentiment = analyze_text_sentiment(text)[0].get('sentiment score')
+    entities = analyze_text_entities(text)
 
     # Assign a label based on the score
     overall_sentiment = 'unknown'
@@ -65,6 +66,15 @@ def upload_text():
     entity["text"] = text
     entity["timestamp"] = current_datetime
     entity["sentiment"] = overall_sentiment
+    
+    for e in entities:
+        item = {}
+        item["name"]=e.name
+        item["type"]=language.Entity.Type(e.type_).name
+        item["salience"]=e.salience
+
+    entity["entities"] = item
+
 
     # Save the new entity to Datastore.
     datastore_client.put(entity)
@@ -110,6 +120,18 @@ def analyze_text_sentiment(text):
         sentence_sentiment.append(item)
 
     return sentence_sentiment
+
+def analyze_text_entities(text):
+    client = language.LanguageServiceClient()
+    document = language.Document(content=text, type_=language.Document.Type.PLAIN_TEXT)
+
+    response = client.analyze_entities(document=document)
+
+    entities = response.entities
+
+    print(entities)
+    
+    return entities
 
 
 if __name__ == "__main__":

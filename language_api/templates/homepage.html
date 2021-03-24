@@ -14,6 +14,10 @@
       <p>Text: {{text_entity['text']}}</p>
       <p>Uploaded: {{text_entity['timestamp']}}</p>
       <p>Overall Sentiment: {{text_entity['sentiment']}}</p>
+      <p>Name: {{text_entity['entities']['name']}}</p>
+      <p>Type: {{text_entity['entities']['type']}}</p>
+      <p>Salience: {{text_entity['entities']['salience']}}</p>
     {% endfor %}
+
   </body>
 </html> 
