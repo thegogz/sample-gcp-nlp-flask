@@ -67,13 +67,16 @@ def upload_text():
     entity["timestamp"] = current_datetime
     entity["sentiment"] = overall_sentiment
     
+    entity_extract = []
+
     for e in entities:
         item = {}
         item["name"]=e.name
         item["type"]=language.Entity.Type(e.type_).name
         item["salience"]=e.salience
+        entity_extract.append(item)
 
-    entity["entities"] = item
+    entity["entities"] = entity_extract
 
 
     # Save the new entity to Datastore.
