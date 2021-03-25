@@ -1,25 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<div class="jumbotron text-center">
+
+
+  <html>
+
+  <body>
+
+</div>
 <h1>Google Cloud Platform - Natural Language API</h1>
 
 <p>This Python Flask application demonstrates App Engine Flexible, Datastore, and the Natural Language API.</p>
+</div>
 
-<br>
-
-<html>
-  <body>
-    <form action="upload" method="POST" enctype="multipart/form-data">
-      Upload Text: <input type="text" name="text"><br>
-      <input type="submit" name="submit" value="Submit">
+<div class="container">
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+    <div class="input-group-prepend">
+      <form action="upload" method="POST" enctype="multipart/form-data">
+        <input class="btn btn-outline-secondary" type="button" type="submit" name="submit" value="Submit">
+    </div>
+    
     </form>
-    {% for text_entity in text_entities %}
-      <p>Text: {{text_entity['text']}}</p>
-      <p>Uploaded: {{text_entity['timestamp']}}</p>
-      <p>Overall Sentiment: {{text_entity['sentiment']}}</p>
-      {% for entity in text_entity['entities'] %}
-        <p>Name: {{entity['name']}}</p>
-        <p>Type: {{entity['type']}}</p>
-        <p>Salience: {{entity['salience']}}</p>
-      {% endfor %} 
-    {% endfor %}
+  </div>
 
-  </body>
-</html> 
+  {% for text_entity in text_entities %}
+  <div class="alert alert-info" role="alert">
+    <p>Text: {{text_entity['text']}}</p>
+  </div>
+  <p>Uploaded: {{text_entity['timestamp']}}</p>
+  <p>Overall Sentiment: {{text_entity['sentiment']}}</p>
+  {% for entity in text_entity['entities'] %}
+  <p>Name: {{entity['name']}}</p>
+  <p>Type: {{entity['type']}}</p>
+  <p>Salience: {{entity['salience']}}</p>
+  {% endfor %}
+  {% endfor %}
+</div>
+</body>
+
+</html>
