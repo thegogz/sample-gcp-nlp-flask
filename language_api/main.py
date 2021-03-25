@@ -35,6 +35,7 @@ def db_list():
             
             item = {}
             item["text"]=news['title']
+            item['timestamp']=news['publishDate']
             item["sentiment"]=overall_sentiment
 
             entity_extract = []
