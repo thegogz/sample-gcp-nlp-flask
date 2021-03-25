@@ -19,42 +19,46 @@
   </div>
 
   <div class="container">
-    <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
-      <div class="input-group-prepend">
-        <form action="upload" method="POST" enctype="multipart/form-data">
-          <input class="btn btn-outline-secondary" type="button" type="submit" name="submit" value="Submit">
-      </div>
+    <div class="row">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+        <div class="input-group-prepend">
+          <form action="upload" method="POST" enctype="multipart/form-data">
+            <input class="btn btn-outline-secondary" type="button" type="submit" name="submit" value="Submit">
+        </div>
 
-      </form>
-    </div>
-
-    {% for text_entity in text_entities %}
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Sentiment: {{text_entity['sentiment']}}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Uploaded: {{text_entity['timestamp']}}</h6>
-        <p class="card-text">{{text_entity['text']}}</p>
+        </form>
       </div>
     </div>
-
-    <table class="table">
-      <thead>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Salience</th>
-      </thead>
-      <tbody>
-        {% for entity in text_entity['entities'] %}
-        <tr>
-          <td>{{entity['name']}}</td>
-          <td>{{entity['type']}}</td>
-          <td>{{entity['salience']}}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    {% endfor %}
+    <div class="row">
+      {% for text_entity in text_entities %}
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Sentiment: {{text_entity['sentiment']}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Uploaded: {{text_entity['timestamp']}}</h6>
+          <p class="card-text">{{text_entity['text']}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <table class="table table-striped table-sm">
+        <thead>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Salience</th>
+        </thead>
+        <tbody>
+          {% for entity in text_entity['entities'] %}
+          <tr>
+            <td>{{entity['name']}}</td>
+            <td>{{entity['type']}}</td>
+            <td>{{entity['salience']}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endfor %}
+    </div>
   </div>
 </body>
 
