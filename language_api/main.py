@@ -13,6 +13,42 @@ from google.cloud import language_v1 as language
 
 app = Flask(__name__)
 
+@app.route("/db")
+def db_list():
+    bodies = get_news_body()
+
+    text_entities = []
+
+    for news in bodies:
+        sentiment = analyze_text_sentiment(news['richText'])[0].get('sentiment score')
+        entities = analyze_text_entities(news['richText'])
+        
+        # Assign a label based on the score
+        overall_sentiment = 'unknown'
+        if sentiment > 0:
+            overall_sentiment = 'positive'
+        if sentiment < 0:
+            overall_sentiment = 'negative'
+        if sentiment == 0:
+            overall_sentiment = 'neutral'
+        
+        item = {}
+        item["text"]=news['title']
+        item["sentiment"]=overall_sentiment
+
+        entity_extract = []
+
+        for e in entities:
+            e_item = {}
+            e_item["name"]=e.name
+            e_item["type"]=language.Entity.Type(e.type_).name
+            e_item["salience"]=e.salience
+            entity_extract.append(e_item)
+
+        item["entities"] = entity_extract
+        text_entities.append(item)
+
+    return render_template("homepage.html", text_entities=text_entities)
 
 @app.route("/")
 def homepage():
@@ -137,8 +173,8 @@ def analyze_text_entities(text):
     
     return entities
 
-def get_news_titles():
-    return db_news.request_news()
+def get_news_body():
+    db_news.request_news()
 
 if __name__ == "__main__":
     # This is used when running locally. Gunicorn is used to run the
