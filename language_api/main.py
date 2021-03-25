@@ -1,6 +1,7 @@
 from datetime import datetime
 import logging
 import os
+import db_news
 
 from flask import Flask, redirect, render_template, request
 
@@ -136,6 +137,8 @@ def analyze_text_entities(text):
     
     return entities
 
+def get_news_titles():
+    return db_news.request_news()
 
 if __name__ == "__main__":
     # This is used when running locally. Gunicorn is used to run the
