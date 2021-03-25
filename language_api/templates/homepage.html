@@ -29,38 +29,32 @@
       </form>
     </div>
 
+    {% for text_entity in text_entities %}
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Sentiment: {{text_entity['sentiment']}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Uploaded: {{text_entity['timestamp']}}</h6>
+        <p class="card-text">{{text_entity['text']}}</p>
+      </div>
+    </div>
+
     <table class="table">
       <thead>
-        <th>Text</th>
-        <th>Uploaded</th>
-        <th>Overall Sentiment</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Salience</th>
       </thead>
       <tbody>
-        {% for text_entity in text_entities %}
+        {% for entity in text_entity['entities'] %}
         <tr>
-          <td>{{text_entity['text']}}</td>
-          <td>{{text_entity['timestamp']}}</td>
-          <td>{{text_entity['sentiment']}}</td>
+          <td>{{entity['name']}}</td>
+          <td>{{entity['type']}}</td>
+          <td>{{entity['salience']}}</td>
         </tr>
-        <table>
-          <thead>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Salience</th>
-          </thead>
-          <tbody>
-            {% for entity in text_entity['entities'] %}
-            <tr>
-              <td>{{entity['name']}}</td>
-              <td>{{entity['type']}}</td>
-              <td>{{entity['salience']}}</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
         {% endfor %}
       </tbody>
     </table>
+    {% endfor %}
   </div>
 </body>
 
