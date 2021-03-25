@@ -10,43 +10,56 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
-<div class="jumbotron text-center">
+<html>
 
+<body>
+  <div class="jumbotron text-center">
+    <h1>Google Cloud Platform - Natural Language API</h1>
+    <p>This Python Flask application demonstrates App Engine Flexible, Datastore, and the Natural Language API.</p>
+  </div>
 
-  <html>
+  <div class="container">
+    <div class="row">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+        <div class="input-group-prepend">
+          <form action="upload" method="POST" enctype="multipart/form-data">
+            <input class="btn btn-outline-secondary" type="button" type="submit" name="submit" value="Submit">
+        </div>
 
-  <body>
-
-</div>
-<h1>Google Cloud Platform - Natural Language API</h1>
-
-<p>This Python Flask application demonstrates App Engine Flexible, Datastore, and the Natural Language API.</p>
-</div>
-
-<div class="container">
-  <div class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
-    <div class="input-group-prepend">
-      <form action="upload" method="POST" enctype="multipart/form-data">
-        <input class="btn btn-outline-secondary" type="button" type="submit" name="submit" value="Submit">
+        </form>
+      </div>
     </div>
-    
-    </form>
+    <div class="row">
+      {% for text_entity in text_entities %}
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Sentiment: {{text_entity['sentiment']}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Uploaded: {{text_entity['timestamp']}}</h6>
+          <p class="card-text">{{text_entity['text']}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <table class="table table-striped table-sm">
+        <thead>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Salience</th>
+        </thead>
+        <tbody>
+          {% for entity in text_entity['entities'] %}
+          <tr>
+            <td>{{entity['name']}}</td>
+            <td>{{entity['type']}}</td>
+            <td>{{entity['salience']}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endfor %}
+    </div>
   </div>
-
-  {% for text_entity in text_entities %}
-  <div class="alert alert-info" role="alert">
-    <p>Text: {{text_entity['text']}}</p>
-  </div>
-  <p>Uploaded: {{text_entity['timestamp']}}</p>
-  <p>Overall Sentiment: {{text_entity['sentiment']}}</p>
-  {% for entity in text_entity['entities'] %}
-  <p>Name: {{entity['name']}}</p>
-  <p>Type: {{entity['type']}}</p>
-  <p>Salience: {{entity['salience']}}</p>
-  {% endfor %}
-  {% endfor %}
-</div>
 </body>
 
 </html>
